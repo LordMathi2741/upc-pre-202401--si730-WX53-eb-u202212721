@@ -1,6 +1,7 @@
 using System.Net.Mime;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using si730ebu202212721.API.Inventory.Domain.Model.Queries;
 using si730ebu202212721.API.Inventory.Domain.Services;
 using si730ebu202212721.API.Inventory.Interfaces.REST.Resources;
 using si730ebu202212721.API.Inventory.Interfaces.REST.Transform;
@@ -23,7 +24,7 @@ namespace si730ebu202212721.API.Inventory.Interfaces.REST;
 [ProducesResponseType(201)]
 [ProducesResponseType(400)]
 [ProducesResponseType(500)]
-public class ThingsController(IThingCommandService thingCommandService) : ControllerBase
+public class ThingsController(IThingCommandService thingCommandService, IThingQueryService thingQueryService) : ControllerBase
 {
     /// <summary>
     ///   CreateThing is a POST method that creates a new thing.
@@ -39,5 +40,14 @@ public class ThingsController(IThingCommandService thingCommandService) : Contro
         var thing = await thingCommandService.Handle(command);
         var thingResource = ThingResourceFromEntityAssembler.ToResourceFromEntity(thing);
         return StatusCode(201, thingResource);
+    }
+
+    [HttpGet("{id:int}")]
+    public async Task<IActionResult> GetThingById(int id)
+    {
+        var query = new GetThingByIdQuery(id);
+        var thing = await thingQueryService.Handle(query);
+        var thingResource = ThingResourceFromEntityAssembler.ToResourceFromEntity(thing);
+        return Ok(thingResource);
     }
 }

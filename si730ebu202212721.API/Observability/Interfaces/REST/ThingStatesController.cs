@@ -5,7 +5,7 @@ using si730ebu202212721.API.Observability.Domain.Services;
 using si730ebu202212721.API.Observability.Interfaces.REST.Resources;
 using si730ebu202212721.API.Observability.Interfaces.REST.Transform;
 
-namespace si730ebu202212721.API.Observability.Interfaces;
+namespace si730ebu202212721.API.Observability.Interfaces.REST;
 
 /// <summary>
 ///  Controller for managing the state of a thing.

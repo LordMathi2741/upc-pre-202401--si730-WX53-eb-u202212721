@@ -109,7 +109,7 @@
                -Version: 1.0.0
             </remarks>
         </member>
-        <member name="M:si730ebu202212721.API.Inventory.Interfaces.REST.ThingsController.#ctor(si730ebu202212721.API.Inventory.Domain.Services.IThingCommandService)">
+        <member name="M:si730ebu202212721.API.Inventory.Interfaces.REST.ThingsController.#ctor(si730ebu202212721.API.Inventory.Domain.Services.IThingCommandService,si730ebu202212721.API.Inventory.Domain.Services.IThingQueryService)">
             <summary>
                - ThingsController is a REST API controller for managing things.
                - It is the entry point for all requests related to Inventory bounded context
@@ -311,7 +311,7 @@
         </member>
         <!-- Badly formed XML comment ignored for member "T:si730ebu202212721.API.Observability.Infrastructure.Persistence.EFC.Repositories.ThingStateRepository" -->
         <!-- Badly formed XML comment ignored for member "M:si730ebu202212721.API.Observability.Infrastructure.Persistence.EFC.Repositories.ThingStateRepository.#ctor(si730ebu202212721.API.Shared.Infrastructure.Persistence.EFC.Configuration.AppDbContext)" -->
-        <member name="T:si730ebu202212721.API.Observability.Interfaces.ThingStatesController">
+        <member name="T:si730ebu202212721.API.Observability.Interfaces.REST.ThingStatesController">
             <summary>
              Controller for managing the state of a thing.
             </summary>
@@ -321,7 +321,7 @@
               - Version: 1.0.0
             </remarks>
         </member>
-        <member name="M:si730ebu202212721.API.Observability.Interfaces.ThingStatesController.#ctor(si730ebu202212721.API.Observability.Domain.Services.IThingStateCommandService)">
+        <member name="M:si730ebu202212721.API.Observability.Interfaces.REST.ThingStatesController.#ctor(si730ebu202212721.API.Observability.Domain.Services.IThingStateCommandService)">
             <summary>
              Controller for managing the state of a thing.
             </summary>
@@ -331,7 +331,7 @@
               - Version: 1.0.0
             </remarks>
         </member>
-        <member name="M:si730ebu202212721.API.Observability.Interfaces.ThingStatesController.CreateThingState(si730ebu202212721.API.Observability.Interfaces.REST.Resources.CreateThingStateResource)">
+        <member name="M:si730ebu202212721.API.Observability.Interfaces.REST.ThingStatesController.CreateThingState(si730ebu202212721.API.Observability.Interfaces.REST.Resources.CreateThingStateResource)">
             <summary>
              Creates a new thing state.
             </summary>

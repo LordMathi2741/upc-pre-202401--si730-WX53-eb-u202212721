@@ -1,5 +1,7 @@
 
+using si730ebu202212721.API.Inventory.Domain.Model.Aggregates;
 using si730ebu202212721.API.Inventory.Domain.Model.Queries;
+using si730ebu202212721.API.Inventory.Domain.Model.ValueObjects;
 using si730ebu202212721.API.Inventory.Domain.Repositories;
 using si730ebu202212721.API.Inventory.Domain.Services;
 
@@ -21,5 +23,24 @@ public class ThingContextFacade(IThingQueryService thingQueryService) : IThingCo
         var query = new GetThingBySerialNumberQuery(serialNumber);
         var thing = await thingQueryService.Handle(query);
         return thing?.Id ?? 0;
+    }
+
+    public async Task<Thing?> UpdateThingCurrentOperation(int id,int operationMode)
+    {
+        var query = new GetThingByIdQuery(id);
+        var thing = await thingQueryService.Handle(query);
+        if (thing != null)
+        {
+            if (Enum.IsDefined(typeof(EOperationMode), operationMode))
+            {
+                thing.OperationMode = (EOperationMode)operationMode;
+                thing.UpdatedDate = DateTime.UtcNow;
+            }
+            else
+            {
+                throw new ArgumentException($"Invalid operation mode: {operationMode}");
+            }
+        }
+        return thing;
     }
 }

@@ -11,4 +11,9 @@ public class ThingQueryService(IThingRepository thingRepository) : IThingQuerySe
     {
         return await thingRepository.FindBySerialNumber(query.SerialNumber);
     }
+
+    public async Task<Thing?> Handle(GetThingByIdQuery query)
+    {
+        return await thingRepository.FindByIdAsync(query.Id);
+    }
 }

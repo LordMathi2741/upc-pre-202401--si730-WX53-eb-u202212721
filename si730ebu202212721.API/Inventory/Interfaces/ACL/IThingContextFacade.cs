@@ -1,4 +1,5 @@
 using si730ebu202212721.API.Inventory.Domain.Model.Aggregates;
+using si730ebu202212721.API.Inventory.Domain.Model.ValueObjects;
 
 namespace si730ebu202212721.API.Inventory.Interfaces.ACL;
 
@@ -17,4 +18,5 @@ public interface IThingContextFacade
     
 
     Task<int> FetchThingIdBySerialNumber(string serialNumber);
+    Task<Thing?> UpdateThingCurrentOperation(int id, int operationMode);
 }

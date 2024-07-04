@@ -1,3 +1,5 @@
+using si730ebu202212721.API.Inventory.Domain.Model.Aggregates;
+using si730ebu202212721.API.Inventory.Domain.Model.ValueObjects;
 using si730ebu202212721.API.Inventory.Interfaces.ACL;
 using si730ebu202212721.API.Observability.Domain.Model.Exceptions;
 using si730ebu202212721.API.Observability.Domain.Model.ValueObjects;
@@ -21,5 +23,12 @@ public class ExternalThingService(IThingContextFacade thingContextFacade)
         var thingId = await thingContextFacade.FetchThingIdBySerialNumber(serialNumber);
         if (thingId == 0) throw new ThingSerialNumberDoesntExistsException(serialNumber);
         return new ThingId(thingId);
+    }
+
+    public async Task<Thing> UpdateThingOperationMode(int id, int operationMode)
+    {
+        var thing = await thingContextFacade.UpdateThingCurrentOperation(id, operationMode);
+        if (thing == null) throw new Exception("Error updating thing operation mode");
+        return thing;
     }
 }

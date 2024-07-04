@@ -15,13 +15,13 @@ namespace si730ebu202212721.API.Observability.Domain.Model.Aggregates;
 public partial class ThingState
 {
     public int Id { get; }
-    public ThingSerialNumber ThingSerialNumberValueObject { get; set; }
+    public ThingSerialNumber ThingSerialNumberValueObject { get; private set; }
     public int CurrentOperationMode { get; set; }
     public decimal CurrentTemperature { get; set; }
     public decimal CurrentHumidity { get; set; }
     public DateTime CollectedAt { get; set; }
     
-    public Thing Thing { get; set; }
+    public Thing Thing { get; private set; }
     
     public int ThingId { get; set; }
     

@@ -23,7 +23,7 @@ public partial class Thing
     public decimal  MinimumHumidityThreshold { get; set; }
     public EOperationMode OperationMode { get; set; }
     
-    public ICollection<ThingState> ThingStates { get; set; }
+    public ICollection<ThingState> ThingStates { get; private set; }
     
 }
 

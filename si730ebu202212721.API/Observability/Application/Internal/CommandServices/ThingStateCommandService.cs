@@ -50,6 +50,7 @@ public class ThingStateCommandService(IUnitOfWork unitOfWork, IThingStateReposit
         
         var thingState = new ThingState(command);
         thingState.ThingId = thingId.Id;
+        var thing = await externalThingService.UpdateThingOperationMode(thingId.Id, command.CurrentOperationMode);
         await thingStateRepository.AddAsync(thingState);
         await unitOfWork.CompleteAsync();
         return thingState;
