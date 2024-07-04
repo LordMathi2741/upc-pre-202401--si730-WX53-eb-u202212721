@@ -1,0 +1,521 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>si730ebu202212721.API</name>
+    </assembly>
+    <members>
+        <member name="T:si730ebu202212721.API.Inventory.Domain.Model.Aggregates.Thing">
+             <summary>
+                This class represents the aggregate root for the Inventory bounded context.
+             </summary>
+            <remarks>
+               Author: U202212721 Mathias Jave Diaz
+               Version: 1.0.0
+             </remarks>
+             
+        </member>
+        <member name="T:si730ebu202212721.API.Inventory.Domain.Model.ValueObjects.SerialNumber">
+            SerialNumber value object
+            <summary>
+              - This class represents the serial number value object for the Inventory bounded context.
+            </summary>
+            <param name="Value"></param>
+            <remarks>
+               Author: U202212721 Mathias Jave Diaz
+               Version: 1.0.0
+            </remarks>
+        </member>
+        <member name="M:si730ebu202212721.API.Inventory.Domain.Model.ValueObjects.SerialNumber.#ctor(System.Guid)">
+            SerialNumber value object
+            <summary>
+              - This class represents the serial number value object for the Inventory bounded context.
+            </summary>
+            <param name="Value"></param>
+            <remarks>
+               Author: U202212721 Mathias Jave Diaz
+               Version: 1.0.0
+            </remarks>
+        </member>
+        <member name="P:si730ebu202212721.API.Inventory.Domain.Model.ValueObjects.SerialNumber.Value">
+            <summary></summary>
+        </member>
+        <member name="T:si730ebu202212721.API.Inventory.Infrastructure.Persistence.EFC.Repositories.ThingRepository">
+            ThingRepository
+            <summary>
+              - The implementation of IThingRepository.
+               - The repository is responsible for the CRUD operations of the Thing aggregate root
+               - Follow the repository pattern and Dependencies Inversion Principle
+            </summary>
+            <param name="context"></param>
+            <remarks>
+              Author: U202212721 Mathias Jave Diaz
+              Version: 1.0.0
+            </remarks>
+        </member>
+        <member name="M:si730ebu202212721.API.Inventory.Infrastructure.Persistence.EFC.Repositories.ThingRepository.#ctor(si730ebu202212721.API.Shared.Infrastructure.Persistence.EFC.Configuration.AppDbContext)">
+            ThingRepository
+            <summary>
+              - The implementation of IThingRepository.
+               - The repository is responsible for the CRUD operations of the Thing aggregate root
+               - Follow the repository pattern and Dependencies Inversion Principle
+            </summary>
+            <param name="context"></param>
+            <remarks>
+              Author: U202212721 Mathias Jave Diaz
+              Version: 1.0.0
+            </remarks>
+        </member>
+        <member name="T:si730ebu202212721.API.Inventory.Interfaces.ACL.IThingContextFacade">
+            IThingContextFacade
+            <summary>
+              - This interface is used to define the contract for the ThingContextFacade.
+              - This interface is used to export the thing services for use in other services
+              - Follow the facade pattern
+            </summary>
+            <remarks>
+              - Author: U2022212721 Mathias Jave Diaz
+              - Version: 1.0.0
+            </remarks>
+        </member>
+        <member name="T:si730ebu202212721.API.Inventory.Interfaces.ACL.Services.ThingContextFacade">
+            <summary>
+              - This class is used to implement the IThingContextFacade interface.
+              - This class is used to implement the thing services for use in other services
+            </summary>
+            <remarks>
+              - Author: U2022212721 Mathias Jave Diaz
+               - Version: 1.0.0
+            </remarks>
+            <param name="thingRepository"></param>
+        </member>
+        <member name="M:si730ebu202212721.API.Inventory.Interfaces.ACL.Services.ThingContextFacade.#ctor(si730ebu202212721.API.Inventory.Domain.Services.IThingQueryService)">
+            <summary>
+              - This class is used to implement the IThingContextFacade interface.
+              - This class is used to implement the thing services for use in other services
+            </summary>
+            <remarks>
+              - Author: U2022212721 Mathias Jave Diaz
+               - Version: 1.0.0
+            </remarks>
+            <param name="thingRepository"></param>
+        </member>
+        <member name="T:si730ebu202212721.API.Inventory.Interfaces.REST.ThingsController">
+            <summary>
+               - ThingsController is a REST API controller for managing things.
+               - It is the entry point for all requests related to Inventory bounded context
+            </summary>
+            <remarks>
+              - Author: U202212721 Mathias Jave Diaz
+               -Version: 1.0.0
+            </remarks>
+        </member>
+        <member name="M:si730ebu202212721.API.Inventory.Interfaces.REST.ThingsController.#ctor(si730ebu202212721.API.Inventory.Domain.Services.IThingCommandService)">
+            <summary>
+               - ThingsController is a REST API controller for managing things.
+               - It is the entry point for all requests related to Inventory bounded context
+            </summary>
+            <remarks>
+              - Author: U202212721 Mathias Jave Diaz
+               -Version: 1.0.0
+            </remarks>
+        </member>
+        <member name="M:si730ebu202212721.API.Inventory.Interfaces.REST.ThingsController.CreateThing(si730ebu202212721.API.Inventory.Interfaces.REST.Resources.CreateThingResource)">
+            <summary>
+              CreateThing is a POST method that creates a new thing.
+            </summary>
+            <param name="createThingResource"></param>
+            <response code="201">Returns the newly created thing</response>
+            <response code="400"> Return bad request </response>
+            <response code="500"> Return internal server error </response>
+        </member>
+        <member name="T:si730ebu202212721.API.Observability.Application.Internal.CommandServices.ThingStateCommandService">
+             ThingStateCommandService
+             <summary>
+              - This class is responsible for handling the commands related to the ThingState aggregate root
+               - It validates the command and then creates a new ThingState entity and saves it to the database.
+               - It also checks if the ThingSerialNumber exists in the external service and if the ThingState with the same ThingSerialNumber and CollectedAt already exists in the database.
+             </summary>
+             <param name="unitOfWork"></param>
+             <param name="thingStateRepository"></param>
+             <param name="externalThingService"></param>
+            
+             <remarks>
+               -Author: U202212721 Mathias Jave Diaz
+               -Version 1.0.0
+             </remarks>
+        </member>
+        <member name="M:si730ebu202212721.API.Observability.Application.Internal.CommandServices.ThingStateCommandService.#ctor(si730ebu202212721.API.Shared.Domain.Repositories.IUnitOfWork,si730ebu202212721.API.Observability.Domain.Repositories.IThingStateRepository,si730ebu202212721.API.Observability.Application.Internal.OutboundServices.ACL.ExternalThingService)">
+             ThingStateCommandService
+             <summary>
+              - This class is responsible for handling the commands related to the ThingState aggregate root
+               - It validates the command and then creates a new ThingState entity and saves it to the database.
+               - It also checks if the ThingSerialNumber exists in the external service and if the ThingState with the same ThingSerialNumber and CollectedAt already exists in the database.
+             </summary>
+             <param name="unitOfWork"></param>
+             <param name="thingStateRepository"></param>
+             <param name="externalThingService"></param>
+            
+             <remarks>
+               -Author: U202212721 Mathias Jave Diaz
+               -Version 1.0.0
+             </remarks>
+        </member>
+        <member name="T:si730ebu202212721.API.Observability.Application.Internal.OutboundServices.ACL.ExternalThingService">
+            ExternalThingService
+            <summary>
+               - This class is responsible for handling the external thing service.
+               - It is used to interact with the external thing service.
+            </summary>
+            <param name="thingContextFacade"></param>
+            <remarks>
+              - Author: U202212721 Mathias Jave Diaz
+              - Version: 1.0.0
+            </remarks>
+        </member>
+        <member name="M:si730ebu202212721.API.Observability.Application.Internal.OutboundServices.ACL.ExternalThingService.#ctor(si730ebu202212721.API.Inventory.Interfaces.ACL.IThingContextFacade)">
+            ExternalThingService
+            <summary>
+               - This class is responsible for handling the external thing service.
+               - It is used to interact with the external thing service.
+            </summary>
+            <param name="thingContextFacade"></param>
+            <remarks>
+              - Author: U202212721 Mathias Jave Diaz
+              - Version: 1.0.0
+            </remarks>
+        </member>
+        <member name="T:si730ebu202212721.API.Observability.Domain.Model.Aggregates.ThingState">
+            ThingState aggregate root
+            <summary>
+              - ThingState is the aggregate root for the Observability bounded context.
+            </summary>
+            <remarks>
+             - Author: U202212721 Mathias Jave Diaz
+              -Version: 1.0.0
+            </remarks>
+            <summary>
+              - Represents the auditable columns of a ThingState.
+            - This class is used to add the auditable columns to the ThingState aggregate root
+            </summary>
+            <remarks>
+               - Author: U202212721 Mathias Jave Diaz
+               - Version: 1.0.0
+            </remarks>
+        </member>
+        <member name="T:si730ebu202212721.API.Observability.Domain.Model.Commands.CreateThingStateCommand">
+            <summary>
+               - Command to create a new ThingState
+               - The command is used to create a new ThingState
+            </summary>
+            <param name="ThingSerialNumber"></param>
+            <param name="CurrentHumidity"></param>
+            <param name="CurrentTemperature"></param>
+            <param name="CurrentOperationMode"></param>
+            <param name="CollectedAt"></param>
+            <remarks>
+              - Author: U202212721 Mathias Jave Diaz
+              - Version 1.0.0
+            </remarks>
+        </member>
+        <member name="M:si730ebu202212721.API.Observability.Domain.Model.Commands.CreateThingStateCommand.#ctor(System.String,System.Decimal,System.Decimal,System.Int32,System.DateTime)">
+            <summary>
+               - Command to create a new ThingState
+               - The command is used to create a new ThingState
+            </summary>
+            <param name="ThingSerialNumber"></param>
+            <param name="CurrentHumidity"></param>
+            <param name="CurrentTemperature"></param>
+            <param name="CurrentOperationMode"></param>
+            <param name="CollectedAt"></param>
+            <remarks>
+              - Author: U202212721 Mathias Jave Diaz
+              - Version 1.0.0
+            </remarks>
+        </member>
+        <member name="P:si730ebu202212721.API.Observability.Domain.Model.Commands.CreateThingStateCommand.ThingSerialNumber">
+            <summary></summary>
+        </member>
+        <member name="P:si730ebu202212721.API.Observability.Domain.Model.Commands.CreateThingStateCommand.CurrentHumidity">
+            <summary></summary>
+        </member>
+        <member name="P:si730ebu202212721.API.Observability.Domain.Model.Commands.CreateThingStateCommand.CurrentTemperature">
+            <summary></summary>
+        </member>
+        <member name="P:si730ebu202212721.API.Observability.Domain.Model.Commands.CreateThingStateCommand.CurrentOperationMode">
+            <summary></summary>
+        </member>
+        <member name="P:si730ebu202212721.API.Observability.Domain.Model.Commands.CreateThingStateCommand.CollectedAt">
+            <summary></summary>
+        </member>
+        <member name="T:si730ebu202212721.API.Observability.Domain.Model.ValueObjects.ThingId">
+            ThingId Value object
+            <summary>
+              - Value object for the ThingId
+              - It is used to identify the Thing in the external bounded context
+            </summary>
+            <param name="Id"></param>
+            <remarks>
+               Author: U202212721 Mathias Jave Diaz
+               Version: 1.0.0
+            </remarks>
+        </member>
+        <member name="M:si730ebu202212721.API.Observability.Domain.Model.ValueObjects.ThingId.#ctor(System.Int32)">
+            ThingId Value object
+            <summary>
+              - Value object for the ThingId
+              - It is used to identify the Thing in the external bounded context
+            </summary>
+            <param name="Id"></param>
+            <remarks>
+               Author: U202212721 Mathias Jave Diaz
+               Version: 1.0.0
+            </remarks>
+        </member>
+        <member name="P:si730ebu202212721.API.Observability.Domain.Model.ValueObjects.ThingId.Id">
+            <summary></summary>
+        </member>
+        <member name="T:si730ebu202212721.API.Observability.Domain.Model.ValueObjects.ThingSerialNumber">
+            <summary>
+              ThingSerialNumber Value Object
+            </summary>
+            <param name="Value"></param>
+            <remarks>
+              - Author: U202212721 Mathias Jave Diaz
+              - Version: 1.0.0
+            </remarks>
+        </member>
+        <member name="M:si730ebu202212721.API.Observability.Domain.Model.ValueObjects.ThingSerialNumber.#ctor(System.Guid)">
+            <summary>
+              ThingSerialNumber Value Object
+            </summary>
+            <param name="Value"></param>
+            <remarks>
+              - Author: U202212721 Mathias Jave Diaz
+              - Version: 1.0.0
+            </remarks>
+        </member>
+        <member name="P:si730ebu202212721.API.Observability.Domain.Model.ValueObjects.ThingSerialNumber.Value">
+            <summary></summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "T:si730ebu202212721.API.Observability.Domain.Repositories.IThingStateRepository" -->
+        <member name="T:si730ebu202212721.API.Observability.Domain.Services.IThingStateCommandService">
+            IThingStateCommandService
+            <summary>
+              - Service for handling commands related to ThingState
+              - This service is responsible for handling commands related to ThingState
+            </summary>
+            <remarks>
+               - Author: U202212721 Mathias Jave Diaz
+               - Version: 1.0.0
+            </remarks>
+        </member>
+        <!-- Badly formed XML comment ignored for member "T:si730ebu202212721.API.Observability.Infrastructure.Persistence.EFC.Repositories.ThingStateRepository" -->
+        <!-- Badly formed XML comment ignored for member "M:si730ebu202212721.API.Observability.Infrastructure.Persistence.EFC.Repositories.ThingStateRepository.#ctor(si730ebu202212721.API.Shared.Infrastructure.Persistence.EFC.Configuration.AppDbContext)" -->
+        <member name="T:si730ebu202212721.API.Observability.Interfaces.ThingStatesController">
+            <summary>
+             Controller for managing the state of a thing.
+            </summary>
+            <param name="thingCommandService"></param>
+            <remarks>
+              - Author: U202212721 Mathias Jave Diaz
+              - Version: 1.0.0
+            </remarks>
+        </member>
+        <member name="M:si730ebu202212721.API.Observability.Interfaces.ThingStatesController.#ctor(si730ebu202212721.API.Observability.Domain.Services.IThingStateCommandService)">
+            <summary>
+             Controller for managing the state of a thing.
+            </summary>
+            <param name="thingCommandService"></param>
+            <remarks>
+              - Author: U202212721 Mathias Jave Diaz
+              - Version: 1.0.0
+            </remarks>
+        </member>
+        <member name="M:si730ebu202212721.API.Observability.Interfaces.ThingStatesController.CreateThingState(si730ebu202212721.API.Observability.Interfaces.REST.Resources.CreateThingStateResource)">
+            <summary>
+             Creates a new thing state.
+            </summary>
+            <param name="createThingStateResource"></param>
+            <returns></returns>
+        </member>
+        <member name="T:si730ebu202212721.API.Shared.Domain.Repositories.IBaseRepository`1">
+            Base repository interface
+            <summary>
+              -  This interface defines the basic CRUD operations for a repository.
+              -  It is used to define the contract for the repositories.
+              - Follow open close principle
+            </summary>
+            <remarks>
+               - Author: U202212721 Mathias Jave Diaz
+               - Version: 1.0.0
+            </remarks>
+        </member>
+        <member name="T:si730ebu202212721.API.Shared.Domain.Repositories.IUnitOfWork">
+             Interface IUnitOfWork
+             <summary>
+                - Interface for Unit of Work pattern
+                 - This interface is used to define the contract for the Unit of Work pattern
+             </summary>
+            
+             <remarks>
+               - Author: U202212721 Mathias Jave Diaz
+               - Version: 1.0.0
+             </remarks>
+        </member>
+        <member name="T:si730ebu202212721.API.Shared.Infrastructure.Persistence.EFC.Configuration.AppDbContext">
+            AppDbContext class
+            <summary>
+              - AppDbContext class is a DbContext class that represents the database context.
+              - It is used to configure the database and its entities.
+            </summary>
+            <remarks>
+              - Author : U202212721 Mathias Jave Diaz
+             - Version : 1.0.0
+            </remarks>
+        </member>
+        <member name="M:si730ebu202212721.API.Shared.Infrastructure.Persistence.EFC.Configuration.AppDbContext.#ctor(Microsoft.EntityFrameworkCore.DbContextOptions)">
+            AppDbContext class
+            <summary>
+              - AppDbContext class is a DbContext class that represents the database context.
+              - It is used to configure the database and its entities.
+            </summary>
+            <remarks>
+              - Author : U202212721 Mathias Jave Diaz
+             - Version : 1.0.0
+            </remarks>
+        </member>
+        <member name="T:si730ebu202212721.API.Shared.Infrastructure.Persistence.EFC.Configuration.Extensions.ModelBuilderExtensions">
+             ModelBuilderExtensions
+            <summary>
+               - This class contains the extension methods for the ModelBuilder class.
+               - The extension methods are used to configure the naming conventions for the database tables, columns, keys, foreign keys, and indexes.
+            </summary>
+            <remarks>
+               - Author: U202212721 Mathias Jave Diaz
+               - Version: 1.0.0
+            </remarks>
+        </member>
+        <member name="T:si730ebu202212721.API.Shared.Infrastructure.Persistence.EFC.Configuration.Extensions.StringExtensions">
+             StringExtensions
+            <summary>
+               - This class contains extension methods for string.
+               - It is used to convert a string to snake case and pluralize a string.
+            </summary>
+            <remarks>
+                - Author: U202212721 Mathias Jave Diaz
+                - Version: 1.0.0
+            </remarks>
+        </member>
+        <!-- Badly formed XML comment ignored for member "T:si730ebu202212721.API.Shared.Infrastructure.Persistence.EFC.Repositories.BaseRepository`1" -->
+        <member name="T:si730ebu202212721.API.Shared.Interfaces.ASP.Configuration.Extensions.ModelStateExtensions">
+             ModelStateExtensions
+            <summary>
+               - Extension methods for ModelStateDictionary
+               - GetErrorMessages: Get all error messages from ModelStateDictionary
+            </summary>
+            <remarks>
+                - Author: U202212721 Mathias Jave Diaz
+                - Version: 1.0.0
+            </remarks>
+        </member>
+        <member name="T:si730ebu202212721.API.Shared.Interfaces.ASP.Configuration.Extensions.StringExtensions">
+             StringExtensions
+             <summary>
+               - Contains extension methods for string manipulation.
+               -  ToKebabCase: Converts a string to kebab case.
+               - ToSnakeCase: Converts a string to snake case.
+            </summary>
+             <remarks>
+                - Author: U202212721 Mathias Jave Diaz
+                - Version: 1.0.0
+            </remarks>
+        </member>
+        <member name="M:si730ebu202212721.API.Shared.Interfaces.ASP.Configuration.Extensions.StringExtensions.KebabCaseRegex">
+            <remarks>
+            Pattern:<br/>
+            <code>(?&lt;!^)([A-Z][a-z]|(?&lt;=[a-z])[A-Z])</code><br/>
+            Options:<br/>
+            <code>RegexOptions.Compiled</code><br/>
+            Explanation:<br/>
+            <code>
+            ○ Zero-width negative lookbehind.<br/>
+                ○ Match if at the beginning of the string.<br/>
+            ○ 1st capture group.<br/>
+                ○ Match with 2 alternative expressions, atomically.<br/>
+                    ○ Match a sequence of expressions.<br/>
+                        ○ Match a character in the set [A-Z].<br/>
+                        ○ Match a character in the set [a-z].<br/>
+                    ○ Match a sequence of expressions.<br/>
+                        ○ Zero-width positive lookbehind.<br/>
+                            ○ Match a character in the set [a-z] right-to-left.<br/>
+                        ○ Match a character in the set [A-Z].<br/>
+            </code>
+            </remarks>
+        </member>
+        <member name="T:si730ebu202212721.API.Shared.Interfaces.ASP.Configuration.KebabCaseRouteNamingConvention">
+            KebaCaseRouteNamingConvention
+            <summary>
+                 - This class is responsible for converting the controller name to kebab case.
+                - This class is used to apply the kebab case naming convention to the controller and action routes.
+            </summary>
+            <remarks>
+               - Author: U202212721 Mathias Jave Diaz
+                - Version: 1.0.0
+            </remarks>
+        </member>
+        <member name="T:si730ebu202212721.API.Shared.Interfaces.Middleware.ErrorHandlerMiddleware">
+             ErrorHandlerMiddleware
+            <summary>
+               - Middleware to handle exceptions and return a response with the appropriate status code.
+               - The middleware is added to the pipeline in the Startup.cs file.
+                - The Invoke method is called when the middleware is executed.
+               - Follow middleware pattern to handle exceptions.
+            </summary>
+            <remarks>
+               - Author : U202212721 Mathias Jave Diaz
+               - Version: 1.0
+            </remarks>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.KebabCaseRegex_0">
+            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the KebabCaseRegex method.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.KebabCaseRegex_0.Instance">
+            <summary>Cached, thread-safe singleton instance.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.KebabCaseRegex_0.#ctor">
+            <summary>Initializes the instance.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.KebabCaseRegex_0.RunnerFactory">
+            <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.KebabCaseRegex_0.RunnerFactory.CreateInstance">
+            <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.KebabCaseRegex_0.RunnerFactory.Runner">
+            <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.KebabCaseRegex_0.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+            <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.KebabCaseRegex_0.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if a possible match was found; false if no more matches are possible.</returns>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.KebabCaseRegex_0.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.Utilities">
+            <summary>Helper methods used by generated <see cref="T:System.Text.RegularExpressions.Regex"/>-derived implementations.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_defaultTimeout">
+            <summary>Default timeout value set in <see cref="T:System.AppContext"/>, or <see cref="F:System.Text.RegularExpressions.Regex.InfiniteMatchTimeout"/> if none was set.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_hasTimeout">
+            <summary>Whether <see cref="F:System.Text.RegularExpressions.Generated.Utilities.s_defaultTimeout"/> is non-infinite.</summary>
+        </member>
+    </members>
+</doc>
